@@ -9,7 +9,7 @@ description: Use this agent when the user provides failure or life data
   "run the Weibull", "fit this failure data", "what does this beta mean",
   "is this wear-out or random".
 model: sonnet
-tools: read-only
+tools: Read, Grep, Glob
 color: purple
 ---
 

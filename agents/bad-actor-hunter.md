@@ -8,7 +8,7 @@ description: Use this agent when the user wants to identify the worst
   actors", "rank the worst offenders", "what's killing our availability",
   "where is the maintenance budget going".
 model: sonnet
-tools: read-only
+tools: Read, Grep, Glob
 color: yellow
 ---
 
@@ -46,7 +46,7 @@ must survive the question "why is this one above that one?"
 ### 1. Validate the dataset
 Confirm the period covered, which impact dimensions are present (cost,
 downtime, frequency, HSE flags), and any quality limits inherited from the
-data (use the cmms-digester output if provided). State what the ranking can
+data (use the cmms-analyzer output if provided). State what the ranking can
 and cannot see.
 
 ### 2. Compute the impact views

@@ -8,7 +8,7 @@ description: Use this agent when the user wants an adversarial review of a
   "challenge my RCA", "attack this root cause", "red-team this RCA",
   "find the holes in this investigation".
 model: sonnet
-tools: read-only
+tools: Read, Grep, Glob
 color: red
 ---
 

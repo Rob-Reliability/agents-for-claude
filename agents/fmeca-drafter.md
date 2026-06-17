@@ -9,7 +9,7 @@ description: Use this agent when the user wants to pre-populate or draft a
   "pre-populate the worksheet", "prepare the FMEA for", "build the FMEA
   skeleton".
 model: sonnet
-tools: read-only
+tools: Read, Grep, Glob
 color: orange
 ---
 
@@ -62,7 +62,7 @@ For each function: total and partial loss states, in site language.
 
 ### 4. Populate failure modes
 For each functional failure, list credible failure modes, drawing from the
-structured history (cmms-digester output if provided), OEM extracts
+structured history (cmms-analyzer output if provided), OEM extracts
 (oem-manual-extractor output if provided), and equipment-class knowledge —
 each row tagged with its provenance. Do not pad with implausible textbook
 modes; a 40-row sheet the team trusts beats a 120-row sheet they skim.

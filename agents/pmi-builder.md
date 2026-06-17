@@ -7,8 +7,8 @@ description: Use this agent when the user asks to write, draft, or generate a
   estimated duration — written for the shift technician, not the auditor.
   Triggers on phrases like "build the PMI", "write the PM procedure", "draft
   the gamme", "turn this task into a work instruction".
-model: sonnet
-tools: read-only
+model: opus
+tools: Read, Grep, Glob
 color: green
 ---
 

@@ -9,7 +9,7 @@ description: Use this agent when the user wants to extract reliability-relevant
   manual", "extract the maintenance tasks", "what does the OEM say about",
   "digest this vendor document".
 model: haiku
-tools: read-only
+tools: Read, Grep, Glob
 color: cyan
 ---
 

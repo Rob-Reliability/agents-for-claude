@@ -41,11 +41,11 @@ agent file, when (not) to use them:
 | Agent | What it does | Model | Access |
 |---|---|---|---|
 | [`oem-manual-extractor`](agents/oem-manual-extractor.md) | Reads an OEM manual or vendor doc in isolation and returns only the reliability-relevant content — failure modes, maintenance tasks with frequencies, MTBF figures, operating limits, critical spares — every item page-cited. | Haiku | Read-only |
-| [`cmms-digester`](agents/cmms-digester.md) | Digests raw CMMS work order exports into structured failure histories per equipment tag, mapped to your site failure code taxonomy. Flags what it can't classify — never guesses. | Haiku | Read-only |
+| [`cmms-analyzer`](agents/cmms-analyzer.md) | Reads a raw CMMS work order export into a structured failure history per equipment tag (mapped to your site failure code taxonomy), then surfaces the picture — recurring modes, hotspots, bad actors to dig into, strategy slip. Flags what it can't classify — never guesses. | Opus 4.8 | Read-only |
 | [`weibull-analyst`](agents/weibull-analyst.md) | Fits life data, interprets beta/eta in engineering language (infant mortality / random / wear-out), and translates into maintenance implications. States plainly when the data is insufficient — no false precision. | Sonnet | Read-only |
 | [`fmeca-drafter`](agents/fmeca-drafter.md) | Pre-populates a FMECA worksheet — functions, functional failures, modes, effects — from structured history and manual extracts, every row provenance-tagged. **Never scores criticality**: rating belongs to the facilitation session. | Sonnet | Read-only |
 | [`bad-actor-hunter`](agents/bad-actor-hunter.md) | Ranks your worst offenders by impact (cost, downtime, frequency, HSE) with the ranking logic explicit and counterintuitive signals surfaced. Top-N with justification, ready for a review. | Sonnet | Read-only |
-| [`pmi-builder`](agents/pmi-builder.md) | Turns a strategy line, manual extract, or task description into a field-ready PM procedure — steps, tools, safety/LOTO, acceptance criteria, duration. Written for the shift technician, not the auditor. | Sonnet | Read-only |
+| [`pmi-builder`](agents/pmi-builder.md) | Turns a strategy line, manual extract, or task description into a field-ready PM procedure — steps, tools, safety/LOTO, acceptance criteria, duration. Written for the shift technician, not the auditor. | Opus 4.8 | Read-only |
 | [`rca-challenger`](agents/rca-challenger.md) | Adversarial review of your RCA: attacks the causal chain, lists alternatives not ruled out, flags missing evidence, challenges the stop point. Returns a structured defensibility verdict. | Sonnet | Read-only |
 
 ## How they work as a team
@@ -55,7 +55,7 @@ One agent is useful. Seven are a workflow:
 ```
 oem-manual-extractor ─┐
                       ├─→  fmeca-drafter ──┐
-cmms-digester ────────┤    weibull-analyst ├─→  pmi-builder ──→  rca-challenger
+cmms-analyzer ────────┤    weibull-analyst ├─→  pmi-builder ──→  rca-challenger
                       └─→  bad-actor-hunter┘    (to the field)    (quality control)
    (feed the data)         (run the analysis)
 ```
@@ -66,15 +66,17 @@ decisions into executable work. The rca-challenger attacks your conclusions
 before management does.
 
 Because each runs in its own session, the heavy reading happens in parallel,
-on cheap models (Haiku for volume work, Sonnet for judgment work), and none
-of it pollutes your main context.
+each on the right-sized model — Haiku for raw volume, Sonnet and Opus for the
+judgment calls — and none of it pollutes your main context.
 
 ## Why read-only?
 
 If your AI *can* touch data, assume it will. These agents are constrained by
-configuration (`tools: read-only` in the front matter), not by polite
-prompting. Permissions are configured, not requested — and that's also your
-answer when IT security asks how the AI is constrained.
+configuration — an explicit `tools: Read, Grep, Glob` allowlist in the front
+matter — not by polite prompting. The agent can read and reason; it has no
+write, edit, or shell tool to touch your systems with. Permissions are
+configured, not requested — and that's also your answer when IT security asks
+how the AI is constrained.
 
 Same logic applies in reverse: a markdown agent file from the internet can
 contain prompt injections. Read these files before installing them — they're
